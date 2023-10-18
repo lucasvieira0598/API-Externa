@@ -3,21 +3,21 @@ import Usuario from "./usuarios.js"
 let usuario_elemento = new Usuario()
 
 let Conteudo_Pagina = document.getElementById("Conteudo")
-fetch("https://mocki.io/v1/8f1dfb1a-ecff-456c-837a-204f2de94b34")
+fetch("./pessoas.json")
 .then(Response => Response.json())
 .then(json => {
     usuario_elemento._ListaUsuarios = json
     json.forEach(element => {
         usuario_elemento.CriarUsuario(element.name,element.bio,element.language,element.id,Conteudo_Pagina)
-        console.log(element.name)
-        
     });
 })
 let TipoBusca = "name"
 let BuscaAlt= false
+
 let Resposta = setInterval(() => {
     console.log(usuario_elemento._ListaUsuarios)
     clearInterval(Resposta)
+    
     document.getElementById("LangBusca").addEventListener("click",()=>{
         if(BuscaAlt == false)
         {
@@ -36,9 +36,10 @@ let Resposta = setInterval(() => {
         usuario_elemento._ListaUsuarios.forEach(element => {
             if(element[TipoBusca].name == ValorBusca)
             {
-                Conteudo_Pagina.innerHTML=""
+                
                 usuario_elemento.CriarUsuario(element.name,element.bio,element.language,element.id,Conteudo_Pagina)
                 let Busca_Feita = true
+                
             }
         });
         if (Busca_Feita == false){
